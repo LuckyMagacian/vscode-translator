@@ -6,11 +6,13 @@ import { Utility } from "./utility";
 import { AppInsightsClient } from "./appInsightsClient";
 
 export class Translator {
-    private outputChannel: vscode.OutputChannel;
+    private static outputChannel: vscode.OutputChannel;
     private captureWordStatusBarItem: vscode.StatusBarItem;
 
     constructor() {
-        this.outputChannel = vscode.window.createOutputChannel('Translator');
+        if (!Translator.outputChannel) {
+            Translator.outputChannel = vscode.window.createOutputChannel('Translator');
+        }
         this.captureWordStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, -999999);
         this.captureWordStatusBarItem.text = Utility.getConfiguration().get(Constants.CaptureWordKey) ? Constants.CaptureWordText : Constants.NotCaptureWordText;
         this.captureWordStatusBarItem.command = 'translator.toggleCaptureWord';
@@ -34,9 +36,9 @@ export class Translator {
             if (!target) {
                 return;
             }
-            this.outputChannel.show();
-            this.outputChannel.appendLine(target);
-            this.outputChannel.appendLine('\n');
+            Translator.outputChannel.show();
+            Translator.outputChannel.appendLine(target);
+            Translator.outputChannel.appendLine('\n');
         });
     }
 
@@ -68,11 +70,51 @@ export class Translator {
 
     public static async translate(source: string, showErrorMessage: boolean = false): Promise<string> {
         try {
-            const result = (await axios.get(`https://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=${encodeURIComponent(source)}`)).data;
-            return result['translateResult'].map((translateResult: any) => translateResult.map((sentence: any) => sentence['tgt']).join('')).join('\n');
-        } catch (error) {
+            const response = await axios.get(`https://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=${encodeURIComponent(source)}`);
+            const result = response.data;
+
+            // 输出API响应到OutputChannel
+            if (Translator.outputChannel) {
+                Translator.outputChannel.appendLine('=== Translation API Response ===');
+                Translator.outputChannel.appendLine(JSON.stringify(result, null, 2));
+                Translator.outputChannel.appendLine('');
+            }
+
+            if (!result || !result.translateResult || !Array.isArray(result.translateResult)) {
+                const errorMsg = '翻译API返回数据格式异常';
+                if (showErrorMessage) {
+                    vscode.window.showErrorMessage(errorMsg);
+                }
+                // 输出错误到OutputChannel
+                if (Translator.outputChannel) {
+                    Translator.outputChannel.appendLine('ERROR: Invalid API Response Structure');
+                    Translator.outputChannel.appendLine(JSON.stringify(result, null, 2));
+                    Translator.outputChannel.appendLine('');
+                }
+                return "";
+            }
+
+            return result.translateResult
+                .map((translateResult: any) => {
+                    if (!translateResult) return '';
+                    return translateResult.map((sentence: any) => {
+                        return sentence && sentence.tgt ? sentence.tgt : '';
+                    }).join('');
+                })
+                .join('\n');
+        } catch (error: unknown) {
+            let errorMsg = '翻译请求失败';
+            if (error instanceof Error) {
+                errorMsg = `翻译请求失败: ${error.message}`;
+            }
             if (showErrorMessage) {
-                vscode.window.showErrorMessage(error.toString());
+                vscode.window.showErrorMessage(errorMsg);
+            }
+            // 输出错误到OutputChannel
+            if (Translator.outputChannel) {
+                Translator.outputChannel.appendLine('ERROR: Translation Request Failed');
+                Translator.outputChannel.appendLine(error instanceof Error ? error.stack || error.message : String(error));
+                Translator.outputChannel.appendLine('');
             }
             return "";
         }

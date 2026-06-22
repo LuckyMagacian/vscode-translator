@@ -2,7 +2,7 @@
     "name": "translator",
     "displayName": "Translator",
     "description": "Translate between English and Chinese",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "formulahendry",
     "icon": "logo.png",
     "engines": {
@@ -69,6 +69,32 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Whether to translate when hovering on a word."
+                },
+                "translator.provider": {
+                    "type": "string",
+                    "enum": ["youdao", "siliconflow"],
+                    "default": "siliconflow",
+                    "description": "Translation service provider"
+                },
+                "translator.siliconflow.apiKey": {
+                    "type": "string",
+                    "default": "",
+                    "description": "SiliconFlow API key for AI translation"
+                },
+                "translator.siliconflow.model": {
+                    "type": "string",
+                    "default": "tencent/Hunyuan-MT-7B",
+                    "description": "SiliconFlow model for translation"
+                },
+                "translator.siliconflow.baseUrl": {
+                    "type": "string",
+                    "default": "https://api.siliconflow.cn/v1",
+                    "description": "SiliconFlow API base URL"
+                },
+                "translator.siliconflow.systemPrompt": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Custom system prompt for AI translation (leave empty for default)"
                 }
             }
         }
@@ -89,6 +115,7 @@
     },
     "dependencies": {
         "applicationinsights": "^1.0.5",
-        "axios": "^0.18.0"
+        "axios": "^0.18.0",
+        "openai": "^4.0.0"
     }
 }

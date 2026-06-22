@@ -10,7 +10,10 @@ export class TranslatorHoverProvider implements HoverProvider {
         if (Utility.getConfiguration().get(Constants.CaptureWordKey)) {
             const source = document.getText(document.getWordRangeAtPosition(position));
             if (source) {
-                return new Hover(await Translator.translate(source));
+                const translator = new Translator();
+                // 使用实例方法进行翻译
+                const target = await translator['translateText'](source);
+                return new Hover(target || "");
             }
         }
         return new Hover("");

@@ -1,9 +1,9 @@
 'use strict';
-import axios from "axios";
 import * as vscode from 'vscode';
 import * as Constants from './constants';
 import { Utility } from "./utility";
 import { AppInsightsClient } from "./appInsightsClient";
+import { TranslatorFactory, ITranslationProvider } from './translators';
 
 export class Translator {
     private static outputChannel: vscode.OutputChannel;
@@ -26,13 +26,29 @@ export class Translator {
             return;
         }
         const selection = editor.selection;
-        const text = selection.isEmpty ? editor.document.getText() : editor.document.getText(editor.selection);
+
+        // 获取要翻译的文本:优先选中文本,否则获取当前单词
+        let text = '';
+        if (!selection.isEmpty) {
+            text = editor.document.getText(selection);
+        } else {
+            // 获取光标位置的单词
+            const wordRange = editor.document.getWordRangeAtPosition(selection.active);
+            if (wordRange) {
+                text = editor.document.getText(wordRange);
+            }
+        }
+
+        if (!text || text.trim() === '') {
+            vscode.window.showWarningMessage('请先选中要翻译的文本,或将光标放在单词上');
+            return;
+        }
 
         await vscode.window.withProgress({
             title: `Translating`,
             location: vscode.ProgressLocation.Notification,
         }, async () => {
-            const target = await Translator.translate(text, true);
+            const target = await this.translateText(text);
             if (!target) {
                 return;
             }
@@ -58,7 +74,7 @@ export class Translator {
             title: `Replacing with Translation`,
             location: vscode.ProgressLocation.Notification,
         }, async () => {
-            const target = await Translator.translate(text, true);
+            const target = await this.translateText(text);
             if (!target) {
                 return;
             }
@@ -68,54 +84,32 @@ export class Translator {
         });
     }
 
-    public static async translate(source: string, showErrorMessage: boolean = false): Promise<string> {
+    /**
+     * 翻译文本 - 根据配置选择翻译服务
+     */
+    private async translateText(source: string): Promise<string> {
         try {
-            const response = await axios.get(`https://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=${encodeURIComponent(source)}`);
-            const result = response.data;
+            const config = Utility.getConfiguration();
+            const providerName = config.get<string>(Constants.TranslatorProviderKey, 'youdao');
 
-            // 输出API响应到OutputChannel
-            if (Translator.outputChannel) {
-                Translator.outputChannel.appendLine('=== Translation API Response ===');
-                Translator.outputChannel.appendLine(JSON.stringify(result, null, 2));
-                Translator.outputChannel.appendLine('');
-            }
+            Translator.outputChannel.appendLine(`=== Using Translation Provider: ${providerName} ===`);
+            Translator.outputChannel.appendLine('');
 
-            if (!result || !result.translateResult || !Array.isArray(result.translateResult)) {
-                const errorMsg = '翻译API返回数据格式异常';
-                if (showErrorMessage) {
-                    vscode.window.showErrorMessage(errorMsg);
-                }
-                // 输出错误到OutputChannel
-                if (Translator.outputChannel) {
-                    Translator.outputChannel.appendLine('ERROR: Invalid API Response Structure');
-                    Translator.outputChannel.appendLine(JSON.stringify(result, null, 2));
-                    Translator.outputChannel.appendLine('');
-                }
-                return "";
-            }
-
-            return result.translateResult
-                .map((translateResult: any) => {
-                    if (!translateResult) return '';
-                    return translateResult.map((sentence: any) => {
-                        return sentence && sentence.tgt ? sentence.tgt : '';
-                    }).join('');
-                })
-                .join('\n');
+            const translator: ITranslationProvider = TranslatorFactory.create(providerName, config);
+            return await translator.translate(source, Translator.outputChannel);
         } catch (error: unknown) {
-            let errorMsg = '翻译请求失败';
+            let errorMsg = '翻译初始化失败';
             if (error instanceof Error) {
-                errorMsg = `翻译请求失败: ${error.message}`;
+                errorMsg = `翻译初始化失败: ${error.message}`;
             }
-            if (showErrorMessage) {
-                vscode.window.showErrorMessage(errorMsg);
+            vscode.window.showErrorMessage(errorMsg);
+            Translator.outputChannel.appendLine(`ERROR: Translation Initialization Failed`);
+            if (error instanceof Error) {
+                Translator.outputChannel.appendLine(error.stack || error.message);
+            } else {
+                Translator.outputChannel.appendLine(String(error));
             }
-            // 输出错误到OutputChannel
-            if (Translator.outputChannel) {
-                Translator.outputChannel.appendLine('ERROR: Translation Request Failed');
-                Translator.outputChannel.appendLine(error instanceof Error ? error.stack || error.message : String(error));
-                Translator.outputChannel.appendLine('');
-            }
+            Translator.outputChannel.appendLine('');
             return "";
         }
     }

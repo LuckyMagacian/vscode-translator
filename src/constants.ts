@@ -14,3 +14,8 @@ export const SiliconFlowApiKey: string = 'siliconflow.apiKey';
 export const SiliconFlowModelKey: string = 'siliconflow.model';
 export const SiliconFlowBaseUrlKey: string = 'siliconflow.baseUrl';
 export const SiliconFlowSystemPromptKey: string = 'siliconflow.systemPrompt';
+
+// 翻译缓存配置
+export const CacheEnabledKey: string = 'cacheEnabled';
+export const CacheMaxSizeKey: string = 'cacheMaxSize';
+export const CacheTTLKey: string = 'cacheTTL';

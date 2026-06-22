@@ -61,19 +61,31 @@ export class SiliconFlowTranslator extends BaseTranslator {
                 dangerouslyAllowBrowser: true // VSCode扩展环境需要
             });
 
-            this.log(outputChannel, `=== SiliconFlow Translation Request ===`);
-            this.log(outputChannel, `Model: ${this.model}`);
-            this.log(outputChannel, `Source: ${source}`);
+            // 准备请求数据
+            const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+                { role: 'system', content: this.systemPrompt },
+                { role: 'user', content: source }
+            ];
+
+            const requestBody = {
+                model: this.model,
+                messages: messages,
+                temperature: 0.3
+            };
+
+            // 输出完整的 API Request (JSON 格式)
+            this.log(outputChannel, `=== SiliconFlow API Request ===`);
+            this.log(outputChannel, JSON.stringify({
+                url: `${this.baseUrl}/chat/completions`,
+                headers: {
+                    'Authorization': `Bearer ${this.apiKey.substring(0, 10)}...`,
+                    'Content-Type': 'application/json'
+                },
+                body: requestBody
+            }, null, 2));
             this.log(outputChannel, '');
 
-            const response = await openai.chat.completions.create({
-                model: this.model,
-                messages: [
-                    { role: 'system', content: this.systemPrompt },
-                    { role: 'user', content: source }
-                ],
-                temperature: 0.3
-            });
+            const response = await openai.chat.completions.create(requestBody);
 
             // 输出API响应
             this.logApiResponse(outputChannel, 'SiliconFlow Translation API Response', {
@@ -86,6 +98,12 @@ export class SiliconFlowTranslator extends BaseTranslator {
             });
 
             const translation = response.choices[0]?.message?.content?.trim();
+
+            // 输出翻译结果
+            this.log(outputChannel, `=== SiliconFlow Translation Result ===`);
+            this.log(outputChannel, `Source: ${source}`);
+            this.log(outputChannel, `Translation: ${translation}`);
+            this.log(outputChannel, '');
 
             if (!translation) {
                 const errorMsg = '硅基流动翻译返回空结果';

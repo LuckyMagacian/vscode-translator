@@ -1,10 +1,41 @@
+# Source files
+src/**
+*.ts
+
+# Build files
+out/**
+dist/**/*.map
+
+# Test files
+test/**
+**/*.test.ts
+
+# Documentation
+docs/**
+*.md
+!README.md
+!CHANGELOG.md
+
+# Development files
 .vscode/**
 .vscode-test/**
-out/test/**
-out/**/*.map
-src/**
-images/**
 .gitignore
-tsconfig.json
+.yarnrc
 vsc-extension-quickstart.md
+
+# Build configs
+tsconfig.json
+webpack.config.js
 tslint.json
+
+# Dependencies (exclude development dependencies)
+node_modules/@types/**
+node_modules/typescript/**
+node_modules/webpack/**
+node_modules/ts-loader/**
+node_modules/tslint/**
+
+# Misc
+.DS_Store
+*.vsix
+images/**

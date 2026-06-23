@@ -8,9 +8,7 @@ Translate between any language with AI-powered translation support.
 
 - **Hover Translation**: Hover on a word to see instant translation
 - **Selection Translation**: Select text to translate
-- **Multiple Translation Providers**:
-  - **Youdao**: Traditional dictionary-based translation ! unusable 
-  - **SiliconFlow**: AI-powered translation using LLM models (default)
+- **AI-Powered Translation**: Using LLM models with OpenAI-compatible API
 - **Smart Caching**: Built-in translation cache to reduce API calls
 - **Language Auto-Detection**: Automatically translate between your first and second language
 - **Customizable Prompts**: Customize AI translation behavior with system prompts
@@ -49,17 +47,11 @@ Hover on text to translate:
 
 Configure the extension in VS Code settings (`Ctrl+,`):
 
-### Translation Provider
+### AI Translation Settings
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| `translator.provider` | Translation service provider (`youdao` or `siliconflow`) | `siliconflow` |
-
-### SiliconFlow Settings (AI Translation)
-
-| Setting | Description | Default |
-|---------|-------------|---------|
-| `translator.siliconflow.apiKey` | SiliconFlow API key | `""` |
+| `translator.siliconflow.apiKey` | API key for AI translation | `""` |
 | `translator.siliconflow.model` | AI model for translation | `THUDM/GLM-4-9B-0414` |
 | `translator.siliconflow.baseUrl` | API base URL | `https://api.siliconflow.cn/v1` |
 | `translator.siliconflow.systemPrompt` | Custom system prompt for AI translation | `""` (use default) |

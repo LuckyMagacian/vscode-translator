@@ -69,29 +69,20 @@
                     "default": true,
                     "description": "Whether to translate when hovering on a word."
                 },
-                "translator.provider": {
-                    "type": "string",
-                    "enum": [
-                        "youdao",
-                        "siliconflow"
-                    ],
-                    "default": "siliconflow",
-                    "description": "Translation service provider"
-                },
                 "translator.siliconflow.apiKey": {
                     "type": "string",
                     "default": "",
-                    "description": "SiliconFlow API key for AI translation , default model is free for use when rpm < 1000"
+                    "description": "API key for AI translation (OpenAI-compatible providers)"
                 },
                 "translator.siliconflow.model": {
                     "type": "string",
                     "default": "THUDM/GLM-4-9B-0414",
-                    "description": "SiliconFlow model for translation"
+                    "description": "AI model for translation"
                 },
                 "translator.siliconflow.baseUrl": {
                     "type": "string",
                     "default": "https://api.siliconflow.cn/v1",
-                    "description": "SiliconFlow API base URL"
+                    "description": "API base URL (compatible with OpenAI API)"
                 },
                 "translator.siliconflow.systemPrompt": {
                     "type": "string",

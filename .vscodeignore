@@ -38,5 +38,4 @@ node_modules/tslint/**
 # Misc
 .DS_Store
 *.vsix
-images/**
 out

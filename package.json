@@ -25,10 +25,7 @@
         "Language"
     ],
     "activationEvents": [
-        "onLanguage:*",
-        "onCommand:translator.translate",
-        "onCommand:translator.replaceWithTranslation",
-        "onCommand:translator.toggleCaptureWord"
+        "*"
     ],
     "main": "./dist/extension",
     "contributes": {

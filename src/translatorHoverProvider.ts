@@ -19,15 +19,15 @@ export class TranslatorHoverProvider implements HoverProvider {
             return undefined;
         }
 
-        // 关键：检查是否有选中文本
+        // 必须选中文本才触发翻译
         const selection = editor.selection;
         if (selection.isEmpty) {
-            return undefined;  // 无选中，不触发
+            return undefined;
         }
 
         // 检查悬停位置是否在选中区域内
         if (!selection.contains(position)) {
-            return undefined;  // 悬停位置不在选中区域，不触发
+            return undefined;
         }
 
         // 获取选中的文本
@@ -40,7 +40,7 @@ export class TranslatorHoverProvider implements HoverProvider {
             return new Hover(markdown, selection);
         }
 
-        // 执行翻译（不使用缓存，直接翻译）
+        // 执行翻译
         const translation = await this.translateText(selectedText);
 
         if (!translation) {
@@ -49,7 +49,6 @@ export class TranslatorHoverProvider implements HoverProvider {
 
         // 创建 Markdown 内容显示翻译结果
         const markdown = new MarkdownString();
-        // 将换行符转换为 Markdown 的换行（两个空格 + \n）
         const formattedTranslation = translation.replace(/\n/g, '  \n');
         markdown.appendMarkdown(`**Translation:**\n\n${formattedTranslation}`);
 

@@ -4,7 +4,7 @@
     "description": "Translate between any languages with AI-powered support.",
     "version": "0.0.1",
     "publisher": "",
-    "icon": "logo.svg",
+    "icon": "logo.png",
     "repository": {
         "type": "git",
         "url": "https://github.com/LuckyMagacian/vscode-translator.git"

@@ -29,7 +29,7 @@ webpack.config.js
 tslint.json
 
 # Dependencies (exclude development dependencies)
-node_modules/@types/**
+node_modules
 node_modules/typescript/**
 node_modules/webpack/**
 node_modules/ts-loader/**
@@ -39,3 +39,4 @@ node_modules/tslint/**
 .DS_Store
 *.vsix
 images/**
+out

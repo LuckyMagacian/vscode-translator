@@ -2,7 +2,7 @@
 
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/formulahendry.translator.svg)](https://marketplace.visualstudio.com/items?itemName=formulahendry.translator)
 
-Translate between English and Chinese with AI-powered translation support.
+Translate between any language with AI-powered translation support.
 
 ## Features
 
@@ -27,13 +27,13 @@ Translate between English and Chinese with AI-powered translation support.
 
 ### Basic Translation
 
-Hover on a word to translate:
+Select text you want to translate:
 
-![hover](images/hover.png)
+![select](images/select.png)
 
-Select text to translate:
+Hover on text to translate:
 
-![translate](images/translate.png)
+![translate](images/hover.png)
 
 ### Keyboard Shortcuts
 
@@ -64,7 +64,13 @@ Configure the extension in VS Code settings (`Ctrl+,`):
 | `translator.siliconflow.baseUrl` | API base URL | `https://api.siliconflow.cn/v1` |
 | `translator.siliconflow.systemPrompt` | Custom system prompt for AI translation | `""` (use default) |
 
-> **Note**: The default model `THUDM/GLM-4-9B-0414` is free to use (RPM < 1000). You can get your API key from [SiliconFlow](https://siliconflow.cn/).
+> **Note**: The default model `THUDM/GLM-4-9B-0414` is free to use (RPM < 1000). You can get your API key from [SiliconFlow](https://cloud.siliconflow.cn/i/z7W4kiHi).
+
+> **Tip**: These settings are compatible with any OpenAI-compatible API provider. You can replace `baseUrl` and `apiKey` with other providers like:
+> - **OpenAI**: `https://api.openai.com/v1`
+> - **Azure OpenAI**: Your Azure endpoint
+> - **DeepSeek**: `https://api.deepseek.com/v1`
+> - **Other OpenAI-compatible services**: Just update the `baseUrl` and use corresponding `apiKey` and `model`
 
 ### Language Settings
 
@@ -94,7 +100,7 @@ The extension automatically detects the source language and translates to the ot
 
 ### Step 1: Register Account
 
-1. Visit [SiliconFlow Official Website](https://siliconflow.cn/)
+1. Visit [SiliconFlow Official Website](https://cloud.siliconflow.cn/i/z7W4kiHi) ! Here use my invite code you can delete it; 
 2. Click "注册" (Register) button
 3. Sign up with:
    - Email address
@@ -167,4 +173,33 @@ If you find any bug or have any suggestion/feature request, please submit the [i
 
 ## License
 
-MIT
+MIT License
+
+## Acknowledgments
+
+### Original Author
+
+Special thanks to [formulahendry](https://github.com/formulahendry) for creating the original [vscode-translator](https://github.com/formulahendry/vscode-translator) project.
+
+### SiliconFlow
+
+Thanks to [SiliconFlow](https://siliconflow.cn/) for providing free AI model services that make AI-powered translation accessible to everyone.
+
+## Attribution
+
+This project is a fork of [vscode-translator](https://github.com/formulahendry/vscode-translator) originally created by [formulahendry](https://github.com/formulahendry).
+
+### Original Project
+
+- **Repository**: https://github.com/formulahendry/vscode-translator
+- **License**: MIT
+- **Author**: formulahendry
+
+### Changes
+
+This fork includes the following enhancements:
+- Added SiliconFlow AI translation provider
+- Implemented translation cache system
+- Added customizable system prompts
+- Enhanced language auto-detection
+- Added debug logging functionality

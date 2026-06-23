@@ -49,7 +49,9 @@ export class TranslatorHoverProvider implements HoverProvider {
 
         // 创建 Markdown 内容显示翻译结果
         const markdown = new MarkdownString();
-        markdown.appendMarkdown(`**Translation:**\n\n${translation}`);
+        // 将换行符转换为 Markdown 的换行（两个空格 + \n）
+        const formattedTranslation = translation.replace(/\n/g, '  \n');
+        markdown.appendMarkdown(`**Translation:**\n\n${formattedTranslation}`);
 
         return new Hover(markdown, selection);
     }

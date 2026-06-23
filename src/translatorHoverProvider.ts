@@ -34,9 +34,9 @@ export class TranslatorHoverProvider implements HoverProvider {
         const selectedText = document.getText(selection);
 
         // 文本长度限制（建议最多 500 字符）
-        if (selectedText.length > 500) {
+        if (selectedText.length > 5000) {
             const markdown = new MarkdownString();
-            markdown.appendMarkdown(`**Warning:** Selected text is too long (${selectedText.length} characters). Maximum is 500 characters.`);
+            markdown.appendMarkdown(`**Warning:** Selected text is too long (${selectedText.length} characters). Maximum is 5000 characters.`);
             return new Hover(markdown, selection);
         }
 

@@ -5,6 +5,10 @@
     "version": "0.0.5",
     "publisher": "formulahendry",
     "icon": "logo.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/formulahendry/vscode-translator"
+    },
     "engines": {
         "vscode": "^1.70.0"
     },
@@ -17,15 +21,6 @@
         "English",
         "Chinese"
     ],
-    "bugs": {
-        "url": "https://github.com/formulahendry/vscode-translator/issues",
-        "email": "formulahendry@gmail.com"
-    },
-    "homepage": "https://github.com/formulahendry/vscode-translator/blob/master/README.md",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/formulahendry/vscode-translator.git"
-    },
     "activationEvents": [
         "onCommand:translator.translate",
         "onCommand:translator.replaceWithTranslation",
@@ -86,11 +81,11 @@
                 "translator.siliconflow.apiKey": {
                     "type": "string",
                     "default": "",
-                    "description": "SiliconFlow API key for AI translation"
+                    "description": "SiliconFlow API key for AI translation , default model is free for use when rpm < 1000"
                 },
                 "translator.siliconflow.model": {
                     "type": "string",
-                    "default": "tencent/Hunyuan-MT-7B",
+                    "default": "THUDM/GLM-4-9B-0414",
                     "description": "SiliconFlow model for translation"
                 },
                 "translator.siliconflow.baseUrl": {
@@ -117,6 +112,21 @@
                     "type": "number",
                     "default": 30,
                     "description": "Cache time-to-live in minutes"
+                },
+                "translator.firstLanguage": {
+                    "type": "string",
+                    "default": "中文",
+                    "description": "第一语言(母语或主要语言),非第一语言将翻译为此语言"
+                },
+                "translator.secondLanguage": {
+                    "type": "string",
+                    "default": "英文",
+                    "description": "第二语言(目标语言),第一语言将翻译为此语言"
+                },
+                "translator.enableLog": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "是否启用翻译日志输出,开启后会在输出通道显示API请求和响应详情"
                 }
             }
         }

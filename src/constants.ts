@@ -19,3 +19,10 @@ export const SiliconFlowSystemPromptKey: string = 'siliconflow.systemPrompt';
 export const CacheEnabledKey: string = 'cacheEnabled';
 export const CacheMaxSizeKey: string = 'cacheMaxSize';
 export const CacheTTLKey: string = 'cacheTTL';
+
+// 语言配置
+export const FirstLanguageKey: string = 'firstLanguage';
+export const SecondLanguageKey: string = 'secondLanguage';
+
+// 日志配置
+export const EnableLogKey: string = 'enableLog';

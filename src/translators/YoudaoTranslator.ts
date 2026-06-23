@@ -10,6 +10,10 @@ export class YoudaoTranslator extends BaseTranslator {
     readonly name = 'youdao';
     readonly displayName = '有道翻译';
 
+    constructor(enableLog: boolean = true) {
+        super(enableLog);
+    }
+
     async translate(source: string, outputChannel?: vscode.OutputChannel): Promise<string> {
         try {
             const response = await axios.get(

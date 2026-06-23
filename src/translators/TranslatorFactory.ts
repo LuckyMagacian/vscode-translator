@@ -15,20 +15,34 @@ export class TranslatorFactory {
      * @returns 翻译器实例
      */
     static create(provider: string, config: vscode.WorkspaceConfiguration): ITranslationProvider {
+        // 读取日志配置
+        const enableLog = config.get<boolean>('enableLog', true);
+
         switch (provider) {
             case 'youdao':
-                return new YoudaoTranslator();
+                return new YoudaoTranslator(enableLog);
 
             case 'siliconflow':
                 const apiKey = config.get<string>('siliconflow.apiKey', '');
                 const model = config.get<string>('siliconflow.model', 'tencent/Hunyuan-MT-7B');
                 const baseUrl = config.get<string>('siliconflow.baseUrl', 'https://api.siliconflow.cn/v1');
                 const systemPrompt = config.get<string>('siliconflow.systemPrompt', '');
-                return new SiliconFlowTranslator(apiKey, model, baseUrl, systemPrompt);
+                const firstLanguage = config.get<string>('firstLanguage', '中文');
+                const secondLanguage = config.get<string>('secondLanguage', '英文');
+
+                return new SiliconFlowTranslator(
+                    apiKey,
+                    model,
+                    baseUrl,
+                    systemPrompt,
+                    firstLanguage,
+                    secondLanguage,
+                    enableLog
+                );
 
             default:
                 // 默认使用有道翻译
-                return new YoudaoTranslator();
+                return new YoudaoTranslator(enableLog);
         }
     }
 

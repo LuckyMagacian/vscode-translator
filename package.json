@@ -143,7 +143,6 @@
     },
     "dependencies": {
         "applicationinsights": "^1.0.5",
-        "axios": "^0.18.0",
         "openai": "^4.0.0"
     }
 }

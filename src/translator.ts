@@ -99,7 +99,7 @@ export class Translator {
     private async translateText(source: string): Promise<string> {
         try {
             const config = Utility.getConfiguration();
-            const providerName = config.get<string>(Constants.TranslatorProviderKey, 'siliconflow');
+            const providerName = 'siliconflow'; // 固定使用 siliconflow
 
             // 读取缓存配置
             const cacheEnabled = config.get<boolean>(Constants.CacheEnabledKey, true);
@@ -207,7 +207,7 @@ export class Translator {
      */
     public static getCachedTranslation(source: string): string | undefined {
         const config = Utility.getConfiguration();
-        const providerName = config.get<string>(Constants.TranslatorProviderKey, 'siliconflow');
+        const providerName = 'siliconflow'; // 固定使用 siliconflow
         const cacheEnabled = config.get<boolean>(Constants.CacheEnabledKey, true);
 
         if (!cacheEnabled) {

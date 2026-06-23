@@ -17872,17 +17872,11 @@ AppInsightsClient._enableTelemetry = vscode.workspace.getConfiguration("telemetr
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.EnableLogKey = exports.SecondLanguageKey = exports.FirstLanguageKey = exports.CacheTTLKey = exports.CacheMaxSizeKey = exports.CacheEnabledKey = exports.SiliconFlowSystemPromptKey = exports.SiliconFlowBaseUrlKey = exports.SiliconFlowModelKey = exports.SiliconFlowApiKey = exports.TranslatorProviderKey = exports.AiKey = exports.NotCaptureWordText = exports.CaptureWordText = exports.CaptureWordKey = void 0;
+exports.EnableLogKey = exports.SecondLanguageKey = exports.FirstLanguageKey = exports.CacheTTLKey = exports.CacheMaxSizeKey = exports.CacheEnabledKey = exports.AiKey = exports.NotCaptureWordText = exports.CaptureWordText = exports.CaptureWordKey = void 0;
 exports.CaptureWordKey = 'captureWord';
 exports.CaptureWordText = '$(check) Capture Word';
 exports.NotCaptureWordText = '$(dash) Capture Word';
 exports.AiKey = '5deb6789-b852-4274-ba9b-a4716419eb2b';
-// 翻译提供商配置
-exports.TranslatorProviderKey = 'provider';
-exports.SiliconFlowApiKey = 'siliconflow.apiKey';
-exports.SiliconFlowModelKey = 'siliconflow.model';
-exports.SiliconFlowBaseUrlKey = 'siliconflow.baseUrl';
-exports.SiliconFlowSystemPromptKey = 'siliconflow.systemPrompt';
 // 翻译缓存配置
 exports.CacheEnabledKey = 'cacheEnabled';
 exports.CacheMaxSizeKey = 'cacheMaxSize';
@@ -18002,7 +17996,7 @@ class Translator {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const config = utility_1.Utility.getConfiguration();
-                const providerName = config.get(Constants.TranslatorProviderKey, 'siliconflow');
+                const providerName = 'siliconflow'; // 固定使用 siliconflow
                 // 读取缓存配置
                 const cacheEnabled = config.get(Constants.CacheEnabledKey, true);
                 const cacheMaxSize = config.get(Constants.CacheMaxSizeKey, 200);
@@ -18099,7 +18093,7 @@ class Translator {
      */
     static getCachedTranslation(source) {
         const config = utility_1.Utility.getConfiguration();
-        const providerName = config.get(Constants.TranslatorProviderKey, 'siliconflow');
+        const providerName = 'siliconflow'; // 固定使用 siliconflow
         const cacheEnabled = config.get(Constants.CacheEnabledKey, true);
         if (!cacheEnabled) {
             return undefined;

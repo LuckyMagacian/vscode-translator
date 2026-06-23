@@ -9,6 +9,10 @@
         "type": "git",
         "url": "https://github.com/LuckyMagacian/vscode-translator.git"
     },
+    "bugs": {
+        "url": "https://github.com/LuckyMagacian/vscode-translator/issues"
+    },
+    "homepage": "https://github.com/LuckyMagacian/vscode-translator#readme",
     "engines": {
         "vscode": "^1.70.0"
     },

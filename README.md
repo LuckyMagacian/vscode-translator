@@ -25,11 +25,11 @@ Translate between any language with AI-powered translation support.
 
 Select text you want to translate:
 
-![select](images/select.png)
+![select](https://github.com/LuckyMagacian/vscode-translator/raw/feature/siliconflow/images/select.png)
 
 Hover on text to translate:
 
-![translate](images/hover.png)
+![translate](https://github.com/LuckyMagacian/vscode-translator/raw/feature/siliconflow/images/hover.png)
 
 ### Keyboard Shortcuts
 

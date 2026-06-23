@@ -1,25 +1,28 @@
 {
-    "name": "translator",
-    "displayName": "Translator",
-    "description": "Translate between English and Chinese",
-    "version": "0.0.5",
-    "publisher": "formulahendry",
-    "icon": "logo.png",
+    "name": "AITranslator",
+    "displayName": "AI Translator",
+    "description": "Translate between any languages with AI-powered support.",
+    "version": "0.0.1",
+    "publisher": "",
+    "icon": "logo.svg",
     "repository": {
         "type": "git",
-        "url": "https://github.com/formulahendry/vscode-translator"
+        "url": "https://github.com/LuckyMagacian/vscode-translator.git"
     },
     "engines": {
         "vscode": "^1.70.0"
     },
     "categories": [
-        "Other"
+        "Other",
+        "Education"
     ],
     "keywords": [
         "Translator",
         "Translate",
-        "English",
-        "Chinese"
+        "AI",
+        "LLM",
+        "OpenAI",
+        "Language"
     ],
     "activationEvents": [
         "onCommand:translator.translate",
@@ -106,18 +109,18 @@
                 },
                 "translator.firstLanguage": {
                     "type": "string",
-                    "default": "中文",
-                    "description": "第一语言(母语或主要语言),非第一语言将翻译为此语言"
+                    "default": "Chinese",
+                    "description": "First language (native or primary language). Non-first language text will be translated to this language."
                 },
                 "translator.secondLanguage": {
                     "type": "string",
-                    "default": "英文",
-                    "description": "第二语言(目标语言),第一语言将翻译为此语言"
+                    "default": "English",
+                    "description": "Second language (target language). First language text will be translated to this language."
                 },
                 "translator.enableLog": {
                     "type": "boolean",
                     "default": true,
-                    "description": "是否启用翻译日志输出,开启后会在输出通道显示API请求和响应详情"
+                    "description": "Enable translation logging. When enabled, API request and response details will be shown in the output channel."
                 }
             }
         }

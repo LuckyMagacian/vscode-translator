@@ -1,0 +1,47 @@
+<svg width="128" height="128"
+     viewBox="0 0 128 128"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="g"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%">
+      <stop offset="0%" stop-color="#007ACC"/>
+      <stop offset="100%" stop-color="#00C2A8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Hover Bubble -->
+  <rect x="16"
+        y="18"
+        width="96"
+        height="76"
+        rx="16"
+        fill="url(#g)" />
+
+  <path d="M54 94
+           L64 106
+           L74 94"
+        fill="url(#g)" />
+
+  <!-- Translation Content -->
+  <g fill="white"
+     font-family="Inter, Arial, sans-serif"
+     font-weight="700"
+     dominant-baseline="middle"
+     text-anchor="middle">
+
+    <!-- Source -->
+    <text x="42" y="56" font-size="28">T</text>
+
+    <!-- AI Spark -->
+    <text x="64" y="56" font-size="18">✦</text>
+
+    <!-- Target -->
+    <text x="86" y="56" font-size="28">文</text>
+
+  </g>
+
+</svg>

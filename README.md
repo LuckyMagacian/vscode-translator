@@ -1,7 +1,5 @@
 # Translator
 
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version-short/formulahendry.translator.svg)](https://marketplace.visualstudio.com/items?itemName=formulahendry.translator)
-
 Translate between any language with AI-powered translation support.
 
 ## Features
